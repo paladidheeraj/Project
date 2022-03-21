@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -41,7 +41,7 @@ namespace Project
                 female.Enabled = false;
                 
                 Save.Enabled = false;
-                Reset.Enabled = false;
+                Reset2.Enabled = false;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Project
                     male.Enabled = true;
                     male.Selected = true;
                 }
-                else
+                else if(gen=="female")
                 {
                     female.Enabled = true;
                     female.Selected = true;
@@ -99,24 +99,15 @@ namespace Project
 
         protected void Save_Click(object sender, EventArgs e)
         {
-            /*
-            dob.CausesValidation =true;
-            phno.CausesValidation = true;
-            pass.CausesValidation = true;
-            */
+
             new SqlCommand("update register set dob='" + dob.Text + "',gender='" + gender.SelectedValue.ToString() + "',phno='" + phno.Text + "',pass='" + pass.Text + "',flno='" + flno.Text + "',stno='" + stno.Text + "',lm='" + lm.Text + "',city='" + city.Text + "',state='" + state.Text + "' where uid=" + uid.Text, con).ExecuteNonQuery();
             con.Close();
-            //dtrreg.Close();
+
             Response.Write("<script LANGUAGE='JavaScript' >alert('Your edited details are saved and submitted successfully')</script>");
 
         }
-        protected void Reset_Click(object sender, EventArgs e)
+        protected void Reset2_Click(object sender, EventArgs e)
         {
-            /*
-            dob.CausesValidation = false;
-            phno.CausesValidation = false;
-            pass.CausesValidation = false;
-            */
             cmd = new SqlCommand("select * from register where uid=1010", con);
             dtrreg = cmd.ExecuteReader();
             if (dtrreg.Read())
@@ -131,7 +122,7 @@ namespace Project
                     male.Enabled = true;
                     male.Selected = true;
                 }
-                else
+                else if(gen=="female")
                 {
                     female.Enabled = true;
                     female.Selected = true;
@@ -147,22 +138,6 @@ namespace Project
                 con.Close();
                 dtrreg.Close();
             }
-
-            /*
-            fname.Text = "";
-            lname.Text = "";
-            dob.Text = "";
-            male.Selected = false;
-            female.Selected = false;
-            phno.Text = "";
-            uid.Text = "";
-            pass.Text = "";
-            flno.Text = "";
-            stno.Text = "";
-            lm.Text = "";
-            state.Text = "";
-            city.Text = "";
-            */
         }
         protected void Edit_Click(object sender, EventArgs e)
         {
@@ -179,7 +154,66 @@ namespace Project
             male.Enabled = true;
             female.Enabled = true;
             Save.Enabled = true;
-            Reset.Enabled = true;
+            Reset2.Enabled = true;
         }
+
+        protected void lnkfdate_Click(object sender, EventArgs e)
+        {
+            Calendar1.Visible = true;
+        }
+
+        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+            fdate.Text = Calendar1.SelectedDate.ToLongDateString();
+
+            Calendar1.Visible = false;
+        }
+
+        protected void lnktdate_Click(object sender, EventArgs e)
+        {
+            Calendar2.Visible = true;
+        }
+
+        protected void Calendar2_SelectionChanged(object sender, EventArgs e)
+        {
+            tdate.Text = Calendar2.SelectedDate.ToLongDateString();
+
+            Calendar2.Visible = false;
+        }
+
+        protected void Reset_Click(object sender, EventArgs e)
+        {
+            uname.Text = "";
+            fdate.Text = "";
+            tdate.Text = "";
+            city2.SelectedIndex = -1;
+            pbudget.Text = "";
+            phno2.Text = "";
+            dec.Checked = false;
+            cat.Checked = false;
+            ps.Checked = false;
+            photo.Checked = false;
+            video.Checked = false;
+
+        }
+        protected void Submit_Click(object sender, EventArgs e)
+        {
+            string strinsert;
+            string ser = "";
+            foreach (CheckBox checkBox in service.Controls.OfType<CheckBox>())
+            {
+                if (checkBox.Checked)
+                {
+                    ser += checkBox.Text + ",";
+                }
+            }
+            strinsert = "Insert into addevent values('" + uname.Text + "','" + fdate.Text + "','" + tdate.Text + "','" + city2.SelectedValue.ToString() + "','" + ser + "','" + pbudget.Text + "'," + "'" + phno2.Text + "')";
+
+            cmd = new SqlCommand(strinsert, con);
+            cmd.ExecuteNonQuery();
+            Response.Write("<script LANGUAGE='JavaScript' >alert('Request Submitted Successfully')</script>");
+            con.Close();
+        }
+
     }
 }
