@@ -4,4 +4,3 @@ create database project;
 create table register(id int identity(1001,1) PRIMARY KEY not null,uid varchar(1000) not null,fname varchar(30) not null,lname varchar(30) not null,dob varchar(20),gender varchar(30),phno varchar(10) not null,pass varchar(30),flno varchar(500),stno varchar(100),lm varchar(30),city varchar(30),state varchar(30));
 
 create table addevent(uname not null varchar(30),fdate varchar(20),tdate varchar(20),city varchar(20),service varchar(1000),pbudget int,phno not null varchar(10));
-
