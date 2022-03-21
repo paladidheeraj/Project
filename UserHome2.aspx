@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserHome2.aspx.cs" Inherits="Project.UserHome2" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserHome2.aspx.cs" Inherits="Project.UserHome2" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+
     <title></title>
 </head>
 <body>
@@ -28,13 +29,122 @@
           <asp:MultiView ID="MainView" runat="server">
             <asp:View ID="View1" runat="server">
               <table style="width: 100%; border-width: 1px; border-color: #666; border-style: solid;">
+<asp:Panel ID="Panel2" runat="server" Width="450px">
                 <tr>
-                  <td>
-                    <h3>
-                      <span>View 1 </span>
-                    </h3>
-                  </td>
+                    <th>
+                        Add Event Form
+                    </th>
                 </tr>
+                    <tr>
+
+                    <td>
+                <asp:Label ID="Label13" runat="server" Text="User Name :"></asp:Label>
+                </td>
+                     <td>
+                        <asp:TextBox ID="uname" runat="server"></asp:TextBox>    
+                        </td>
+             </tr>
+                  <tr>
+                    <td>
+                <asp:Label ID="Label14" runat="server" Text="From Date : "></asp:Label>
+                        </td>
+
+                    <td>
+                        <asp:TextBox ID="fdate" runat="server"></asp:TextBox>
+                        
+                    
+                        <asp:LinkButton ID="lnkfdate" runat="server" OnClick="lnkfdate_Click" CausesValidation="false">SelectFromDate</asp:LinkButton>
+                        <asp:Calendar ID="Calendar1" runat="server" Visible="false" 
+                           OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>
+                  </td>
+                        </tr>
+
+                <tr>
+                    <td>
+                <asp:Label ID="Label15" runat="server" Text="To Date : "></asp:Label>
+                        </td>
+
+                    <td>
+                        <asp:TextBox ID="tdate" runat="server"></asp:TextBox>
+                        
+                    
+                        <asp:LinkButton ID="lnktdate" runat="server" OnClick="lnktdate_Click" CausesValidation="false">SelectToDate</asp:LinkButton>
+                        <asp:Calendar ID="Calendar2" runat="server" Visible="false" 
+                           OnSelectionChanged="Calendar2_SelectionChanged"></asp:Calendar>
+                  </td>
+                        </tr>
+
+                <tr>
+                    <td>
+                       <asp:Label ID="Label16" runat="server" EnableViewState="False"
+                           Text="Select City : "></asp:Label>  
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="city2" runat="server" >  
+            <asp:ListItem Value="">City</asp:ListItem>  
+            <asp:ListItem Value="Amaravathi">Amaravathi </asp:ListItem>  
+            <asp:ListItem Value="Hyderabad">Hyderabad</asp:ListItem>  
+            <asp:ListItem Value="Kurnool">Kurnool</asp:ListItem>  
+            <asp:ListItem Value="Bangalore">Bangalore</asp:ListItem>  
+            <asp:ListItem Value="Chennai">Chennai</asp:ListItem>  
+	    <asp:ListItem Value="New Delhi">New Delhi</asp:ListItem> 
+	    <asp:ListItem Value="Mumbai">Mumbai</asp:ListItem> 
+        </asp:DropDownList>  
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label runat="server" ID="label17" Text="Select Service : "></asp:Label>  
+                    </td>
+                    <td>
+<asp:Panel runat="server" ID="service" >
+    <asp:CheckBox ID="dec" runat="server" Text="Decoration" />
+    <br />
+    <asp:CheckBox ID="cat" runat="server" Text="Catering" />
+    <br />
+    <asp:CheckBox ID="ps" runat="server" Text="Photo Shoot" />
+    <br />
+    <asp:CheckBox ID="photo" runat="server" Text="Photo" />
+    <br />
+    <asp:CheckBox ID="video" runat="server" Text="Video" />
+</asp:Panel>
+<br />                  
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <asp:Label ID="Label18" runat="server" Text="Planned Budget :"></asp:Label>
+                    </td>
+                    <td>
+                         <asp:TextBox ID="pbudget" runat="server"></asp:TextBox>  
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="Label19" runat="server" Text="Phone No : "></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="phno2" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
+                             ErrorMessage="Phone Number is mandatory" ControlToValidate="phno2" ForeColor="red"></asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" 
+        ControlToValidate="phno2" ErrorMessage="Please enter valid Mobile number!" 
+        ValidationExpression="^([7-9]{1})([0-9]{9})$" ForeColor="Red" ValidateEmptyText="true" />
+  
+        </td>
+                </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="Submit" runat="server" Text="Submit" OnClick="Submit_Click" 
+                        CausesValidation ="true"/>
+                </td>
+                 <td>
+                    <asp:Button ID="Reset" runat="server" Text="Reset" OnClick="Reset_Click" 
+                        CausesValidation ="false" />
+                </td>
+            </tr>
+            </asp:Panel>
               </table>
             </asp:View>
             <asp:View ID="View2" runat="server">
@@ -197,7 +307,8 @@
                             <td>
                         <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" 
                             CausesValidation ="true"/>  
-                        <asp:Button ID="Reset" runat="server" Text="Reset" OnClick="Reset_Click" 
+                        
+                        <asp:Button ID="Reset2" runat="server" Text="Reset" OnClick="Reset2_Click" 
                             CausesValidation ="false"/>  
                             </td>
                                 </tr>
