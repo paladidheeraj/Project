@@ -36,10 +36,10 @@ namespace Project
                 lm.Enabled = false;
                 city.Enabled = false;
                 state.Enabled = false;
-               
+
                 male.Enabled = false;
                 female.Enabled = false;
-                
+
                 Save.Enabled = false;
                 Reset2.Enabled = false;
             }
@@ -59,25 +59,25 @@ namespace Project
 
         protected void vpro_Click(object sender, EventArgs e)
         {
-           
+
             MainView.ActiveViewIndex = 2;
-            cmd = new SqlCommand("select * from register where uid=1010", con);
+            cmd = new SqlCommand("select * from register where uid='U1001'", con);
             dtrreg = cmd.ExecuteReader();
-            if(dtrreg.Read())
+            if (dtrreg.Read())
             {
                 fname.Text = dtrreg["fname"].ToString();
                 lname.Text = dtrreg["lname"].ToString();
                 dob.Text = dtrreg["dob"].ToString();
                 string gen;
-                gen= dtrreg["gender"].ToString().ToLower();
-                if(gen=="male")
+                gen = dtrreg["gender"].ToString().ToLower();
+                if (gen == "male")
                 {
-                    male.Enabled = true;
+                    //male.Enabled = true;
                     male.Selected = true;
                 }
-                else if(gen=="female")
+                else if (gen == "female")
                 {
-                    female.Enabled = true;
+                    //female.Enabled = true;
                     female.Selected = true;
                 }
                 phno.Text = dtrreg["phno"].ToString();
@@ -95,12 +95,13 @@ namespace Project
         protected void logout_Click(object sender, EventArgs e)
         {
             MainView.ActiveViewIndex = 3;
+            Response.Redirect("aa.aspx", true);
         }
 
         protected void Save_Click(object sender, EventArgs e)
         {
 
-            new SqlCommand("update register set dob='" + dob.Text + "',gender='" + gender.SelectedValue.ToString() + "',phno='" + phno.Text + "',pass='" + pass.Text + "',flno='" + flno.Text + "',stno='" + stno.Text + "',lm='" + lm.Text + "',city='" + city.Text + "',state='" + state.Text + "' where uid=" + uid.Text, con).ExecuteNonQuery();
+            new SqlCommand("update register set dob='" + dob.Text + "',gender='" + gender.SelectedValue.ToString() + "',phno='" + phno.Text + "',pass='" + pass.Text + "',flno='" + flno.Text + "',stno='" + stno.Text + "',lm='" + lm.Text + "',city='" + city.Text + "',state='" + state.Text + "' where uid='" + uid.Text + "'", con).ExecuteNonQuery();
             con.Close();
 
             Response.Write("<script LANGUAGE='JavaScript' >alert('Your edited details are saved and submitted successfully')</script>");
@@ -108,40 +109,48 @@ namespace Project
         }
         protected void Reset2_Click(object sender, EventArgs e)
         {
-            cmd = new SqlCommand("select * from register where uid=1010", con);
-            dtrreg = cmd.ExecuteReader();
-            if (dtrreg.Read())
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Yes")
             {
-                fname.Text = dtrreg["fname"].ToString();
-                lname.Text = dtrreg["lname"].ToString();
-                dob.Text = dtrreg["dob"].ToString();
-                string gen;
-                gen = dtrreg["gender"].ToString().ToLower();
-                if (gen == "male")
+                cmd = new SqlCommand("select * from register where uid='U1001'", con);
+                dtrreg = cmd.ExecuteReader();
+                if (dtrreg.Read())
                 {
-                    male.Enabled = true;
-                    male.Selected = true;
+                    fname.Text = dtrreg["fname"].ToString();
+                    lname.Text = dtrreg["lname"].ToString();
+                    dob.Text = dtrreg["dob"].ToString();
+                    string gen;
+                    gen = dtrreg["gender"].ToString().ToLower();
+                    if (gen == "male")
+                    {
+                        male.Enabled = true;
+                        male.Selected = true;
+                    }
+                    else if (gen == "female")
+                    {
+                        female.Enabled = true;
+                        female.Selected = true;
+                    }
+                    phno.Text = dtrreg["phno"].ToString();
+                    uid.Text = dtrreg["uid"].ToString();
+                    pass.Text = dtrreg["pass"].ToString();
+                    flno.Text = dtrreg["flno"].ToString();
+                    stno.Text = dtrreg["stno"].ToString();
+                    lm.Text = dtrreg["lm"].ToString();
+                    city.Text = dtrreg["city"].ToString();
+                    state.Text = dtrreg["state"].ToString();
+                    con.Close();
+                    dtrreg.Close();
                 }
-                else if(gen=="female")
+                else
                 {
-                    female.Enabled = true;
-                    female.Selected = true;
+                    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked NO!')", true);
                 }
-                phno.Text = dtrreg["phno"].ToString();
-                uid.Text = dtrreg["uid"].ToString();
-                pass.Text = dtrreg["pass"].ToString();
-                flno.Text = dtrreg["flno"].ToString();
-                stno.Text = dtrreg["stno"].ToString();
-                lm.Text = dtrreg["lm"].ToString();
-                city.Text = dtrreg["city"].ToString();
-                state.Text = dtrreg["state"].ToString();
-                con.Close();
-                dtrreg.Close();
             }
         }
         protected void Edit_Click(object sender, EventArgs e)
         {
-           
+
             dob.Enabled = true;
             phno.Enabled = true;
             pass.Enabled = true;
@@ -150,7 +159,7 @@ namespace Project
             lm.Enabled = true;
             city.Enabled = true;
             state.Enabled = true;
-           
+
             male.Enabled = true;
             female.Enabled = true;
             Save.Enabled = true;
@@ -214,6 +223,8 @@ namespace Project
             Response.Write("<script LANGUAGE='JavaScript' >alert('Request Submitted Successfully')</script>");
             con.Close();
         }
+
+
 
     }
 }
