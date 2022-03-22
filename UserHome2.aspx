@@ -6,6 +6,19 @@
 <head runat="server">
 
     <title></title>
+     <script type = "text/javascript">
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("The old values will be retained")) {
+                confirm_value.value = "Yes";
+            } else {
+                confirm_value.value = "No";
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+     </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,16 +31,16 @@
       <tr>
         <td>
           
-          <asp:Button Text="Request Quotation" BorderStyle="None" ID="rquo" runat="server" OnClick="rquo_Click"
+          <asp:Button Text="Request Quotation" BorderStyle="None" ID="rquo" runat="server" OnClick="rquo_Click" CausesValidation="false"
                />
-          <asp:Button Text="View Quotation" BorderStyle="None" ID="vquo" runat="server" OnClick="vquo_Click"
+          <asp:Button Text="View Quotation" BorderStyle="None" ID="vquo" runat="server" OnClick="vquo_Click" CausesValidation="false"
               />
-          <asp:Button Text="View Profile" BorderStyle="None" ID="vpro" runat="server" OnClick="vpro_Click"
+          <asp:Button Text="View Profile" BorderStyle="None" ID="vpro" runat="server" OnClick="vpro_Click" CausesValidation="false"
              />
-          <asp:Button Text="Logout" BorderStyle="None" ID="logout" runat="server" OnClick="logout_Click"
+          <asp:Button Text="Logout" BorderStyle="None" ID="logout" runat="server" OnClick="logout_Click" CausesValidation="false"
                />
           <asp:MultiView ID="MainView" runat="server">
-            <asp:View ID="View1" runat="server">
+            <asp:View ID="View1" runat="server" >
               <table style="width: 100%; border-width: 1px; border-color: #666; border-style: solid;">
 <asp:Panel ID="Panel2" runat="server" Width="450px">
                 <tr>
@@ -169,7 +182,7 @@
                     </td>
                     <td> 
                         Edit Profile
-                        <asp:Button ID="Edit" runat="server" Text="Edit" OnClick="Edit_Click" />  
+                        <asp:Button ID="Edit" runat="server" Text="Edit" OnClick="Edit_Click" CausesValidation="false"/>  
                         </td>
                 </tr>
                  <tr>
@@ -308,7 +321,7 @@
                         <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" 
                             CausesValidation ="true"/>  
                         
-                        <asp:Button ID="Reset2" runat="server" Text="Reset" OnClick="Reset2_Click" 
+                        <asp:Button ID="Reset2" runat="server" Text="Reset" OnClick="Reset2_Click" OnClientClick="Confirm()" 
                             CausesValidation ="false"/>  
                             </td>
                                 </tr>
@@ -321,7 +334,7 @@
                 <tr>
                   <td>
                     <h3>
-                      View 4
+                      Log out session
                     </h3>
                   </td>
                 </tr>
